@@ -35,6 +35,7 @@
               Administration
             </a>
             <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/category";?>>Catégories</a></li>
             </ul>
           </li>
         </ul>
