@@ -1,6 +1,6 @@
 <?php
 
-require_once 'models/ServiceEntityRepository.php';
+require_once 'models/repositories/ServiceEntityRepository.php';
 
 class CategoryRepository extends ServiceEntityRepository {
 
@@ -27,7 +27,7 @@ class CategoryRepository extends ServiceEntityRepository {
   public function insert(Category $category) { 
 
     $id_category = $this->insertDatabase('category', [
-      'category' => $category->getName(),
+      'name' => $category->getName(),
     ]);
 
   }  
@@ -35,7 +35,7 @@ class CategoryRepository extends ServiceEntityRepository {
   public function update(Category $category) { 
 
     $this->updateDatabase('category', $category->getId(), [
-      'category' => $category->getName(),
+      'name' => $category->getName(),
     ]);
 
   }  

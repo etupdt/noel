@@ -1,6 +1,8 @@
 <?php
 
-class Comment {
+require_once 'Entity.php';
+
+class Comment extends Entity {
 
   #[Column]
   protected $id;
@@ -11,8 +13,8 @@ class Comment {
   #[Column]
   protected $pseudo;
 
-  #[OneToMany(foreignKey: 'id_visitor')]
-  protected ?Visitor $visitor;
+  // #[OneToMany(foreignKey: 'id_visitor')]
+  // protected ?Visitor $visitor;
 
   public function __construct() {
 
@@ -36,9 +38,9 @@ class Comment {
     return $this->pseudo;
   }
 
-  public function getVisitor() { 
-    return $this->visitor;
-  }  
+  // public function getVisitor() { 
+  //   return $this->visitor;
+  // }  
 
   public function setComment(string  $comment) {
         $this->comment = $comment;
@@ -52,8 +54,8 @@ class Comment {
     $this->pseudo = $pseudo;
   }
 
-  public function setVisitor(Visitor $visitor) {
-    $this->visitor = $visitor;
-  }
+  // public function setVisitor(Visitor $visitor) {
+  //   $this->visitor = $visitor;
+  // }
 
 }

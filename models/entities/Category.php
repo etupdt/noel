@@ -1,6 +1,8 @@
 <?php
 
-class Category {
+require_once 'Entity.php';
+
+class Category extends Entity{
 
   #[Column]
   protected $id;
@@ -21,7 +23,7 @@ class Category {
       return $this->name;
   }
 
-  public function setName(string  $name) {
+  public function setName(string $name) {
         $this->name = $name;
   }
 

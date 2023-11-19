@@ -49,6 +49,10 @@
                             echo $row[$field['name']];
                             break;
                           }
+                          case "textArea" : {
+                            echo $row[$field['name']];
+                            break;
+                          }
                           case "date" : {
                             echo $row[$field['name']];
                             break;

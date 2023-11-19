@@ -1,20 +1,20 @@
 <?php
 
-require_once 'models/entities/Category.php';
-require_once 'models/repositories/CategoryRepository.php';
+require_once 'models/entities/Comment.php';
+require_once 'models/repositories/CommentRepository.php';
 require_once 'models/repositories/EntityManager.php';
 
-class CategoryController {
+class CommentController {
 
-    private CategoryRepository $categoryRepository;
+    private CommentRepository $commentRepository;
 
     public function __construct() {
  
-        error_log('===== Category ====================================================================================================================>   ');
+        error_log('===== Comment ====================================================================================================================>   ');
 
         $depth = 1;
 
-        $this->categoryRepository = new CategoryRepository(0);
+        $this->commentRepository = new CommentRepository(0);
 
     }
 
@@ -25,7 +25,7 @@ class CategoryController {
         $em = new EntityManager();
 
         $nameMenu = "Categories Mission";
-        $nameEntity = "category";
+        $nameEntity = "comment";
 
         $fields = $this->getFields();
 
@@ -39,7 +39,7 @@ class CategoryController {
             } else {
                 switch ($_GET['a']) {
                     case 'd' : {
-                        $row = $this->categoryRepository->find($_GET['id']);
+                        $row = $this->commentRepository->find($_GET['id']);
                         $em->remove($row);
                         $em->flush();
                         $rows = $this->getRows();
@@ -47,14 +47,14 @@ class CategoryController {
                         break;
                     }
                     case 'u' : {
-                        $row = $this->getRow($this->categoryRepository->find($_GET['id']));
+                        $row = $this->getRow($this->commentRepository->find($_GET['id']));
                         require_once 'views/entityForm.php';
                         break;
                     }
                     case 'i' : {
-                        $category = new Category();
-                        $category->setName('');
-                        $row = $this->getRow($category);
+                        $comment = new Comment();
+                        $comment->setName('');
+                        $row = $this->getRow($comment);
                         require_once 'views/entityForm.php';
                         break;
                     }
@@ -65,17 +65,19 @@ class CategoryController {
 
             if ($_POST['id'] !== "0") {
 
-                $category = $this->categoryRepository->find($_POST['id']); 
+                $comment = $this->commentRepository->find($_POST['id']); 
 
             } else {
 
-                $category = new Category(0);
+                $comment = new Comment(0);
 
             }    
 
-            $category->setName($_POST['name']);
+            $comment->setName($_POST['comment']);
+            $validate->setName($_POST['validate']);
+            $pseudo->setName($_POST['pseudo']);
 
-            $em->persist($category);
+            $em->persist($comment);
             $em->flush();
 
             $rows = $this->getRows();
@@ -96,9 +98,9 @@ class CategoryController {
             'type' => 'text'
         ];
         $fields[] = [
-            'label' => 'Nom',
-            'name' => 'name',
-            'type' => 'text'
+            'label' => 'Commentaire',
+            'name' => 'comment',
+            'type' => 'textArea'
         ];
 
         return $fields;
@@ -110,21 +112,21 @@ class CategoryController {
 
         $categories = [];
 
-        foreach ($this->categoryRepository->findAll() as $category) {
+        foreach ($this->commentRepository->findAll() as $comment) {
 
-            $categories[] = $this->getRow($category);
+            $categories[] = $this->getRow($comment);
         } 
 
         return $categories;
 
     }
 
-    private function getRow (Category $category): array 
+    private function getRow (Comment $comment): array 
     {
 
         return  [
-            'id' => $category->getId(),
-            'name' => $category->getName()
+            'id' => $comment->getId(),
+            'name' => $comment->getName()
         ];
 
     }
