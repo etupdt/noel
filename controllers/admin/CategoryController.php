@@ -24,7 +24,7 @@ class CategoryController {
 
         $em = new EntityManager();
 
-        $nameMenu = "Categories Mission";
+        $nameMenu = "Categories";
         $nameEntity = "category";
 
         $fields = $this->getFields();

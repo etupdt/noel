@@ -4,6 +4,7 @@ require_once 'models/Router.php';
 
 require_once 'controllers/HomeController.php';
 require_once 'controllers/admin/CategoryController.php';
+require_once 'controllers/admin/CommentController.php';
 
 require_once 'models/Database.php';
 
@@ -17,6 +18,9 @@ $router->addRoute('GET',BASE_URL.'/', 'HomeController', 'index');
 
 $router->addRoute('GET',BASE_URL.ADMIN_URL.'/category', 'CategoryController', 'index');
 $router->addRoute('POST',BASE_URL.ADMIN_URL.'/category', 'CategoryController', 'index');
+
+$router->addRoute('GET',BASE_URL.ADMIN_URL.'/comment', 'CommentController', 'index');
+$router->addRoute('POST',BASE_URL.ADMIN_URL.'/comment', 'CommentController', 'index');
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = explode('?', $_SERVER['REQUEST_URI'])[0];

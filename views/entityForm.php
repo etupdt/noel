@@ -25,6 +25,10 @@
                   require 'textField.php';
                   break;
                 }
+                case "checkbox" : {
+                  require 'checkBox.php';
+                  break;
+                }
                 case "number" : {
                   require 'textField.php';
                   break;

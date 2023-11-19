@@ -24,7 +24,7 @@ class CommentController {
 
         $em = new EntityManager();
 
-        $nameMenu = "Categories Mission";
+        $nameMenu = "Commentaires";
         $nameEntity = "comment";
 
         $fields = $this->getFields();
@@ -53,7 +53,9 @@ class CommentController {
                     }
                     case 'i' : {
                         $comment = new Comment();
-                        $comment->setName('');
+                        $comment->setComment('');
+                        $comment->setValidate(false);
+                        $comment->setPseudo('');
                         $row = $this->getRow($comment);
                         require_once 'views/entityForm.php';
                         break;
@@ -73,9 +75,9 @@ class CommentController {
 
             }    
 
-            $comment->setName($_POST['comment']);
-            $validate->setName($_POST['validate']);
-            $pseudo->setName($_POST['pseudo']);
+            $comment->setComment($_POST['comment']);
+            $comment->setValidate($_POST['validate'] ? true : false);
+            $comment->setPseudo($_POST['pseudo']);
 
             $em->persist($comment);
             $em->flush();
@@ -100,7 +102,17 @@ class CommentController {
         $fields[] = [
             'label' => 'Commentaire',
             'name' => 'comment',
-            'type' => 'textArea'
+            'type' => 'textarea'
+        ];
+        $fields[] = [
+            'label' => 'Modéré',
+            'name' => 'validate',
+            'type' => 'checkbox'
+        ];
+        $fields[] = [
+            'label' => 'Pseudo',
+            'name' => 'pseudo',
+            'type' => 'text'
         ];
 
         return $fields;
@@ -126,7 +138,9 @@ class CommentController {
 
         return  [
             'id' => $comment->getId(),
-            'name' => $comment->getName()
+            'comment' => $comment->getComment(),
+            'validate' => $comment->getValidate(),
+            'pseudo' => $comment->getPseudo()
         ];
 
     }

@@ -28,7 +28,7 @@ class CommentRepository extends ServiceEntityRepository {
 
     $id_comment = $this->insertDatabase('comment', [
       'comment' => $comment->getComment(),
-      'validate' => $comment->getValidate(),
+      'validate' => $comment->getValidate() ? 1 : 0,
       'pseudo' => $comment->getPseudo(),
     ]);
 
@@ -38,7 +38,7 @@ class CommentRepository extends ServiceEntityRepository {
 
     $this->updateDatabase('comment', $comment->getId(), [
       'comment' => $comment->getComment(),
-      'validate' => $comment->getValidate(),
+      'validate' => $comment->getValidate() ? 1 : 0,
       'pseudo' => $comment->getPseudo(),
     ]);
 

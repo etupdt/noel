@@ -49,7 +49,11 @@
                             echo $row[$field['name']];
                             break;
                           }
-                          case "textArea" : {
+                          case "checkbox" : {
+                            echo $row[$field['name']];
+                            break;
+                          }
+                          case "textarea" : {
                             echo $row[$field['name']];
                             break;
                           }

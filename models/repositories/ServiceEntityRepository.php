@@ -326,7 +326,7 @@ class ServiceEntityRepository {
     
         $pdo_const = [
             'string' => PDO::PARAM_STR,
-            'int' => PDO::PARAM_INT
+            'integer' => PDO::PARAM_INT
         ];
     
         $index = 1;
@@ -355,16 +355,16 @@ class ServiceEntityRepository {
     
         $pdo_const = [
             'string' => PDO::PARAM_STR,
-            'int' => PDO::PARAM_INT
+            'integer' => PDO::PARAM_INT
         ];
     
         $index = 1;
         foreach ($fields as $value) {
+            error_log('==============================================> '.$value);
             $pdoStatement->bindValue($index, $value, $pdo_const[gettype($value)]);
             $index++;
         }
         $pdoStatement->bindValue($index, $id, PDO::PARAM_INT);
-    
         if (!$pdoStatement->execute()) {  
           print_r($pdoStatement->errorInfo());  // sensible à modifier
         }  
