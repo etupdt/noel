@@ -37,6 +37,7 @@
             <ul class="dropdown-menu">
             <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/category";?>>Catégories</a></li>
             <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/comment";?>>Commentaires</a></li>
+            <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/gift";?>>Cadeaux</a></li>
             </ul>
           </li>
         </ul>

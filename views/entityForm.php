@@ -4,7 +4,12 @@
       <div class="title pt-5">
         <h1><?php echo $nameMenu?></h1>
       </div>
-      <form  onSubmit="return isValidForm(this)" action="<?php echo BASE_URL.ADMIN_URL."/".$nameEntity; ?>" class="form admin">
+      <form  
+        onSubmit="return isValidForm(this)" 
+        action="<?php echo BASE_URL.ADMIN_URL."/".$nameEntity; ?>" 
+        class="form admin"
+        enctype="multipart/form-data"
+      >
         <div class="container p-0 form-div">
           <div class="d-grid gap-2 d-md-flex justify-content-md-end my-4">
             <div>
@@ -23,6 +28,14 @@
               switch ($field['type']) {
                 case "text" : {
                   require 'textField.php';
+                  break;
+                }
+                case "file" : {
+                  require 'fileField.php';
+                  break;
+                }
+                case "image" : {
+                  require 'imageField.php';
                   break;
                 }
                 case "checkbox" : {

@@ -49,6 +49,14 @@
                             echo $row[$field['name']];
                             break;
                           }
+                          case "image" : {
+                            echo '<img style="height: 30px;" src="/assets/images/cards/'.$row[$field['name']].'">';
+                            break;
+                          }
+                          case "file" : {
+                            echo $row[$field['name']];
+                            break;
+                          }
                           case "checkbox" : {
                             echo $row[$field['name']];
                             break;

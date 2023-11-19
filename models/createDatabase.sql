@@ -49,9 +49,11 @@ CREATE TABLE IF NOT EXISTS category(
 
 CREATE TABLE IF NOT EXISTS gift(
   id int auto_increment NOT NULL,
-  name varchar (100) NOT NULL,
+  name VARCHAR (100) NOT NULL,
   age int NOT NULL ,
   description text NOT NULL,
+  validate BOOLEAN NOT NULL,
+  imageName VARCHAR (100) NOT NULL,
   id_category int NOT NULL,
 	CONSTRAINT gift_PK PRIMARY KEY (id),
     CONSTRAINT gift_category_FK FOREIGN KEY (id_category) REFERENCES category(id)

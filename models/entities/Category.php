@@ -2,7 +2,7 @@
 
 require_once 'Entity.php';
 
-class Category extends Entity{
+class Category extends Entity {
 
   #[Column]
   protected $id;

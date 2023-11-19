@@ -76,7 +76,7 @@ class CommentController {
             }    
 
             $comment->setComment($_POST['comment']);
-            $comment->setValidate($_POST['validate'] ? true : false);
+            $comment->setValidate(isset($_POST['validate']) ? true : false);
             $comment->setPseudo($_POST['pseudo']);
 
             $em->persist($comment);

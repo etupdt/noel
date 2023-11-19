@@ -1,6 +1,6 @@
 <?php
 
-require_once 'models/attributs/Entity.php';
+require_once 'models/entities/Entity.php';
 
 class User {
 
