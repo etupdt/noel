@@ -28,7 +28,7 @@
             <a class="nav-link" href="#">Cadeaux</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="<?php echo BASE_URL."/letter";?>">Lettre</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,6 +38,8 @@
             <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/category";?>>Catégories</a></li>
             <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/comment";?>>Commentaires</a></li>
             <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/gift";?>>Cadeaux</a></li>
+            <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/elf";?>>Elfes</a></li>
+            <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/visitor";?>>Visiteurs</a></li>
             </ul>
           </li>
         </ul>

@@ -48,7 +48,7 @@ class Visitor extends User {
     return $this->letter;
   }
 
-  public function getGifts()  : string{
+  public function getGifts() {
     return $this->gifts;
   }
 
@@ -72,7 +72,7 @@ class Visitor extends User {
     $this->letter = $letter;
   }
 
-  public function setGifts(string  $gifts) {
+  public function setGifts(array  $gifts) {
     $this->gifts = $gifts;
   }
 

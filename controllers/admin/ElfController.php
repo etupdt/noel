@@ -1,20 +1,20 @@
 <?php
 
-require_once 'models/entities/Category.php';
-require_once 'models/repositories/CategoryRepository.php';
+require_once 'models/entities/Elf.php';
+require_once 'models/repositories/ElfRepository.php';
 require_once 'models/repositories/EntityManager.php';
 
-class CategoryController {
+class ElfController {
 
-    private CategoryRepository $categoryRepository;
+    private ElfRepository $elfRepository;
 
     public function __construct() {
  
-        error_log('===== Category ====================================================================================================================>   ');
+        error_log('===== Elf ====================================================================================================================>   ');
 
         $depth = 1;
 
-        $this->categoryRepository = new CategoryRepository(0);
+        $this->elfRepository = new ElfRepository(0);
 
     }
 
@@ -24,8 +24,8 @@ class CategoryController {
 
         $em = new EntityManager();
 
-        $nameMenu = "Catégories";
-        $nameEntity = "category";
+        $nameMenu = "Elfe";
+        $nameEntity = "elf";
 
         $fields = $this->getFields();
 
@@ -39,7 +39,7 @@ class CategoryController {
             } else {
                 switch ($_GET['a']) {
                     case 'd' : {
-                        $row = $this->categoryRepository->find($_GET['id']);
+                        $row = $this->elfRepository->find($_GET['id']);
                         $em->remove($row);
                         $em->flush();
                         $rows = $this->getRows();
@@ -47,14 +47,15 @@ class CategoryController {
                         break;
                     }
                     case 'u' : {
-                        $row = $this->getRow($this->categoryRepository->find($_GET['id']));
+                        $row = $this->getRow($this->elfRepository->find($_GET['id']));
                         require_once 'views/admin/entityForm.php';
                         break;
                     }
                     case 'i' : {
-                        $category = new Category();
-                        $category->setName('');
-                        $row = $this->getRow($category);
+                        $elf = new Elf();
+                        $elf->setEmail('');
+                        $elf->setName('');
+                        $row = $this->getRow($elf);
                         require_once 'views/admin/entityForm.php';
                         break;
                     }
@@ -65,17 +66,18 @@ class CategoryController {
 
             if ($_POST['id'] !== "0") {
 
-                $category = $this->categoryRepository->find($_POST['id']); 
+                $elf = $this->elfRepository->find($_POST['id']); 
 
             } else {
 
-                $category = new Category(0);
+                $elf = new Elf(0);
 
             }    
 
-            $category->setName($_POST['name']);
+            $elf->setEmail($_POST['email']);
+            $elf->setName($_POST['name']);
 
-            $em->persist($category);
+            $em->persist($elf);
             $em->flush();
 
             $rows = $this->getRows();
@@ -96,6 +98,11 @@ class CategoryController {
             'type' => 'text'
         ];
         $fields[] = [
+            'label' => 'Email',
+            'name' => 'email',
+            'type' => 'email'
+        ];
+        $fields[] = [
             'label' => 'Nom',
             'name' => 'name',
             'type' => 'text'
@@ -108,23 +115,24 @@ class CategoryController {
     private function getRows (): array
     {
 
-        $categories = [];
+        $elfes = [];
 
-        foreach ($this->categoryRepository->findAll() as $category) {
+        foreach ($this->elfRepository->findAll() as $elf) {
 
-            $categories[] = $this->getRow($category);
+            $elfes[] = $this->getRow($elf);
         } 
 
-        return $categories;
+        return $elfes;
 
     }
 
-    private function getRow (Category $category): array 
+    private function getRow (Elf $elf): array 
     {
 
         return  [
-            'id' => $category->getId(),
-            'name' => $category->getName()
+            'id' => $elf->getId(),
+            'email' => $elf->getEmail(),
+            'name' => $elf->getName()
         ];
 
     }

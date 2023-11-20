@@ -24,10 +24,9 @@ CREATE TABLE IF NOT EXISTS visitor (
   id int NOT NULL,
   firstName varchar (100) NOT NULL,
   lastName varchar (100) NOT NULL,
-  pseudo varchar (100) NOT NULL,
-  age int NOT NULL ,
-  address int NOT NULL ,
-  letter text NOT NULL,
+  age INT NOT NULL ,
+  address VARCHAR (255) NOT NULL ,
+  letter TEXT NOT NULL,
 	CONSTRAINT visitor_PK PRIMARY KEY (id_user, id),
 	CONSTRAINT visitor_user_FK FOREIGN KEY (id_user) REFERENCES user(id)
 );

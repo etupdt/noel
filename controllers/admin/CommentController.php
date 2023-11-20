@@ -35,7 +35,7 @@ class CommentController {
 
             if (! isset($_GET['a']) || $_GET['a'] === 'c') {
                 $rows = $this->getRows();
-                require_once 'views/entityList.php';
+                require_once 'views/admin/entityList.php';
             } else {
                 switch ($_GET['a']) {
                     case 'd' : {
@@ -43,12 +43,12 @@ class CommentController {
                         $em->remove($row);
                         $em->flush();
                         $rows = $this->getRows();
-                        require_once 'views/entityList.php';
+                        require_once 'views/admin/entityList.php';
                         break;
                     }
                     case 'u' : {
                         $row = $this->getRow($this->commentRepository->find($_GET['id']));
-                        require_once 'views/entityForm.php';
+                        require_once 'views/admin/entityForm.php';
                         break;
                     }
                     case 'i' : {
@@ -57,7 +57,7 @@ class CommentController {
                         $comment->setValidate(false);
                         $comment->setPseudo('');
                         $row = $this->getRow($comment);
-                        require_once 'views/entityForm.php';
+                        require_once 'views/admin/entityForm.php';
                         break;
                     }
                 }
@@ -83,7 +83,7 @@ class CommentController {
             $em->flush();
 
             $rows = $this->getRows();
-            require_once 'views/entityList.php';
+            require_once 'views/admin/entityList.php';
 
         }
 

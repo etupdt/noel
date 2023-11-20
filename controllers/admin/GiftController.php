@@ -31,13 +31,13 @@ class GiftController {
 
         $fields = $this->getFields();
 
-        require_once 'views/header.php';
+        require_once 'views/common/header.php';
 
         if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
             if (! isset($_GET['a']) || $_GET['a'] === 'c') {
                 $rows = $this->getRows();
-                require_once 'views/entityList.php';
+                require_once 'views/admin/entityList.php';
             } else {
                 switch ($_GET['a']) {
                     case 'd' : {
@@ -45,12 +45,12 @@ class GiftController {
                         $em->remove($row);
                         $em->flush();
                         $rows = $this->getRows();
-                        require_once 'views/entityList.php';
+                        require_once 'views/admin/entityList.php';
                         break;
                     }
                     case 'u' : {
                         $row = $this->getRow($this->giftRepository->find($_GET['id']));
-                        require_once 'views/entityForm.php';
+                        require_once 'views/admin/entityForm.php';
                         break;
                     }
                     case 'i' : {
@@ -61,7 +61,7 @@ class GiftController {
                         $gift->setValidate(true);
                         $gift->setImageName('');
                         $row = $this->getRow($gift);
-                        require_once 'views/entityForm.php';
+                        require_once 'views/admin/entityForm.php';
                         break;
                     }
                 }
@@ -69,7 +69,7 @@ class GiftController {
 
         } else {
 
-            $tmpName = $_FILES['imageName']['tmp_name'];
+            $tmpName = $_FILES['imageName']['tmp_name']; 
             $name = $_FILES['imageName']['name'];
             $size = $_FILES['imageName']['size'];
             $error = $_FILES['imageName']['error'];
@@ -78,7 +78,7 @@ class GiftController {
 
                 $gift = $this->giftRepository->find($_POST['id']); 
 
-                if (hash_file('md5', $tmpName) !== hash_file('md5', '/assets/images/cards/'.$gift->getImageName())) {
+                if (isset($tmpName) && $tmpName !== '' && hash_file('md5', $tmpName) !== hash_file('md5', '/assets/images/cards/'.$gift->getImageName())) {
                     move_uploaded_file($tmpName, $_SERVER['DOCUMENT_ROOT'].'/assets/images/cards/'.$name);
                 } else {
                     $name = $gift->getImageName();
@@ -102,11 +102,11 @@ class GiftController {
             $em->flush();
 
             $rows = $this->getRows();
-            require_once 'views/entityList.php';
+            require_once 'views/admin/entityList.php';
 
         }
 
-        require_once 'views/footer.php';
+        require_once 'views/common/footer.php';
 
     }
 
