@@ -1,13 +1,4 @@
 
-html, body {
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  display:flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
-
 article {
   height: 9.3rem;
 }
@@ -31,13 +22,6 @@ main > div {
   width: 90%;
 }
 
-footer {
-  position: relative;
-  width: 100%;
-  margin-top: auto;
-  display: block;
-}
-
 /*------------------------------*/
 
 .table-data {
@@ -54,49 +38,6 @@ footer {
 .micro-th {
   width: 40px;
   padding: 0.2rem !important;
-}
-
-/*------------------------------*/
-
-.main-mission {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-td .firstname {
-  width: 20%;
-}
-
-td .lastname {
-  width: 20%;
-}
-
-td .birthdate {
-  width: 20%;
-}
-
-td .identificationCode {
-  width: 20%;
-}
-
-td .country {
-  width: 20%;
-}
-
-td .code {
-  width: 20%;
-}
-
-td .address {
-  width: 20%;
-}
-
-td .type {
-  width: 40%;
-}
-
-.form-mission {
-  width: 100%;
 }
 
 @media screen and (min-width: 992px) {
@@ -121,8 +62,4 @@ td .type {
     margin: auto;
   }  
 
-  .form-mission {
-    width: 75%;
-  }
-  
 }

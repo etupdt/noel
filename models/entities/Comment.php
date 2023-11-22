@@ -10,11 +10,9 @@ class Comment extends Entity {
   protected $comment;
   #[Column]
   protected $validate;
-  #[Column]
-  protected $pseudo;
 
-  // #[OneToMany(foreignKey: 'id_visitor')]
-  // protected ?Visitor $visitor;
+  #[OneToMany(foreignKey: 'id_visitor')]
+  protected ?Visitor $visitor;
 
   public function __construct() {
 
@@ -34,13 +32,9 @@ class Comment extends Entity {
     return $this->validate;
   }
 
-  public function getPseudo()  : string {
-    return $this->pseudo;
-  }
-
-  // public function getVisitor() { 
-  //   return $this->visitor;
-  // }  
+  public function getVisitor() { 
+    return $this->visitor;
+  }  
 
   public function setComment(string  $comment) {
         $this->comment = $comment;
@@ -50,12 +44,8 @@ class Comment extends Entity {
     $this->validate = $validate;
   }
 
-  public function setPseudo(string  $pseudo) {
-    $this->pseudo = $pseudo;
+  public function setVisitor(Visitor $visitor) {
+    $this->visitor = $visitor;
   }
-
-  // public function setVisitor(Visitor $visitor) {
-  //   $this->visitor = $visitor;
-  // }
 
 }

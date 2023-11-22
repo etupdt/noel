@@ -3,12 +3,22 @@
   <meta charset="utf-8">
   <meta name="docsearch:language" content="fr">
   <title>Noël</title>
-  <link href="/views/css/style.css" rel="stylesheet">
+  <link href="/views/css/common.css" rel="stylesheet">
+  <?php 
+    foreach ($styleSheets as $styleSheet) {
+      echo '<link href="/views/css/'.$styleSheet.'" rel="stylesheet">';
+    }
+  ?>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+  <?php 
+    foreach ($scripts as $script) {
+      echo '<script src="/views/js/'.$script.'" defer></script>';
+    }
+  ?>
 </head>
 <body>
 
@@ -25,7 +35,7 @@
             <a class="nav-link active" aria-current="page" href="<?php echo BASE_URL.'/';?>">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Cadeaux</a>
+            <a class="nav-link" href="<?php echo BASE_URL."/gift";?>">Cadeaux</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo BASE_URL."/letter";?>">Lettre</a>
@@ -40,6 +50,7 @@
             <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/gift";?>>Cadeaux</a></li>
             <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/elf";?>>Elfes</a></li>
             <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/visitor";?>>Visiteurs</a></li>
+            <li><a class="dropdown-item" href=<?php echo BASE_URL.ADMIN_URL."/command";?>>Commandes</a></li>
             </ul>
           </li>
         </ul>

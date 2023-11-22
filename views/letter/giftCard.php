@@ -1,10 +1,16 @@
 
-<article class="w-100">
-  <form action="<?php echo BASE_URL.'/mission' ?>" class="bg-success-subtle rounded mt-4">
-    <input type="text" hidden name="id" value="<?php echo $mission->getId() ?>">
-    <button  type="submit" class="d-flex flex-column justify-content-start btn btn-outline-success w-100 h-100">
-      <p class="fs-3 fw-semibold px-0 px-lg-3 pt-2"><?php echo  $mission->getTitle() ?></p>
-      <p class="fs-5 px-0 px-lg-4"><?php echo  substr($mission->getDescription(), 0, 200).' ...' ?></p>
-    </button>
-  </form>
+<article class="d-flex flex-row w-100">
+  <div class="card col-3 m-1">
+    <div class="d-flex justify-content-center">
+      <img class="img-card" src="<?= '/assets/images/cards/'.$command->getGift()->getImageName(); ?>">
+    </div>
+  </div>
+  <div class="card col-6 m-1 px-1">
+    <h5 class="card-title"><?= $command->getGift()->getName(); ?></h5>
+    <p class="card-text"><?= $command->getGift()->getDescription(); ?></p>
+  </div>
+  <div class="card w-100 m-1">
+    <h5 class="card-title ms-5">Qté : <?= $command->getQuantity(); ?></h5>
+    <p class="card-text ms-5"><?= $command->getGift()->getCategory()->getName(); ?></p>
+  </div>
 </article>

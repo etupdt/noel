@@ -17,11 +17,10 @@ class Gift extends Entity {
   #[Column]
   protected $imageName;
 
+  protected $commands;
+
   #[OneToMany(foreignKey: 'id_category')]
   protected ?Category $category;
-
-  #[ManyToMany(classes: ['Visitor', 'Gift'])]
-  protected $visitors;
 
   public function __construct() {
 
@@ -59,8 +58,8 @@ class Gift extends Entity {
     return $this->category;
   }    
   
-  public function getVisitors() { 
-    return $this->visitors;
+  public function getCommands() { 
+    return $this->commands;
   }    
   
   public function setName(string  $name) {
@@ -87,8 +86,8 @@ class Gift extends Entity {
     $this->category = $category;
   }  
 
-  public function setVisitors(array  $visitors) {
-    $this->visitors = $visitors;
+  public function setCommands(array  $commands) {
+    $this->commands = $commands;
   }  
 
 }

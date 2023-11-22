@@ -11,12 +11,18 @@ require_once 'controllers/admin/CommentController.php';
 require_once 'controllers/admin/GiftController.php';
 require_once 'controllers/admin/ElfController.php';
 require_once 'controllers/admin/VisitorController.php';
+require_once 'controllers/admin/CommandController.php';
 
 require_once 'models/Database.php';
 
 define("BASE_URL", '');
 define("ADMIN_URL", '/admin');
 define("API_URL", '/api');
+
+session_start();
+if (!isset($_COOKIE['gifts'])) {
+    setcookie('gifts', '{}');
+}
 
 $router = new Router();
 
@@ -43,6 +49,9 @@ $router->addRoute('POST',BASE_URL.ADMIN_URL.'/elf', 'ElfController', 'index');
 
 $router->addRoute('GET',BASE_URL.ADMIN_URL.'/visitor', 'VisitorController', 'index');
 $router->addRoute('POST',BASE_URL.ADMIN_URL.'/visitor', 'VisitorController', 'index');
+
+$router->addRoute('GET',BASE_URL.ADMIN_URL.'/command', 'CommandController', 'index');
+$router->addRoute('POST',BASE_URL.ADMIN_URL.'/command', 'CommandController', 'index');
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = explode('?', $_SERVER['REQUEST_URI'])[0];

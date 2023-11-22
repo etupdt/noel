@@ -2,13 +2,12 @@
 
 require_once 'models/entities/Visitor.php';
 require_once 'models/repositories/VisitorRepository.php';
-require_once 'models/repositories/GiftRepository.php';
+require_once 'models/repositories/CommandRepository.php';
 require_once 'models/repositories/EntityManager.php';
 
 class VisitorController {
 
     private VisitorRepository $visitorRepository;
-    private GiftRepository $giftRepository;
 
     public function __construct() {
  
@@ -17,11 +16,16 @@ class VisitorController {
         $depth = 1;
 
         $this->visitorRepository = new VisitorRepository(1);
-        $this->giftRepository = new GiftRepository(1);
 
     }
 
     public function index() { 
+
+        $styleSheets = [
+            'admin.css'
+        ];
+
+        $scripts = [];
 
         $help = false;
 
@@ -55,14 +59,14 @@ class VisitorController {
                         break;
                     }
                     case 'i' : {
-                        $visitor = new Visitor();
+                        $visitor = new Visitor(0);
                         $visitor->setEmail('');
                         $visitor->setFirstName('');
                         $visitor->setLastName('');
+                        $visitor->setPseudo('');
                         $visitor->setAge(0);
                         $visitor->setAddress('');
                         $visitor->setLetter('');
-                        $visitor->setGifts([]);
                         $row = $this->getRow($visitor);
                         require_once 'views/admin/entityForm.php';
                         break;
@@ -71,16 +75,6 @@ class VisitorController {
             }
 
         } else {
-
-            $commands = [];
-            
-            $idsGifts = $_POST['gifts'];
-
-            foreach($idsGifts as $id_gift) {
-                $gifts[] = [
-                    'id_gift' => $id_gift,
-                ];
-            }
 
             if ($_POST['id'] !== "0") {
 
@@ -95,10 +89,10 @@ class VisitorController {
             $visitor->setEmail($_POST['email']);
             $visitor->setFirstName($_POST['firstname']);
             $visitor->setLastName($_POST['lastname']);
+            $visitor->setPseudo($_POST['pseudo']);
             $visitor->setAge($_POST['age']);
             $visitor->setAddress($_POST['address']);
             $visitor->setLetter($_POST['letter']);
-            $visitor->setGifts($gifts);
 
             $em->persist($visitor);
             $em->flush();
@@ -137,6 +131,11 @@ class VisitorController {
             'type' => 'text'
         ];
         $fields[] = [
+            'label' => 'Pseudo',
+            'name' => 'pseudo',
+            'type' => 'text'
+        ];
+        $fields[] = [
             'label' => 'Age',
             'name' => 'age',
             'type' => 'text'
@@ -152,22 +151,6 @@ class VisitorController {
             'name' => 'letter',
             'type' => 'textarea',
             'hideInList' => true
-        ];
-
-        $gifts = [];
-
-        foreach ($this->giftRepository->findAll() as $gift) {
-            $gifts[] = [
-                'id' => $gift->getId(),
-                'name' => $gift->getName()
-            ];
-        }
-
-        $fields[] = [
-            'label' => 'Cadeaux',
-            'name' => 'gifts',
-            'type' => 'multiSelect',
-            'value' => $gifts,
         ];
 
         return $fields;
@@ -191,17 +174,15 @@ class VisitorController {
     private function getRow (Visitor $visitor): array 
     {
 
-        $gifts = $visitor->getGifts();
-
         return  [
             'id' => $visitor->getId(),
             'email' => $visitor->getEmail(),
             'firstname' => $visitor->getFirstName(),
             'lastname' => $visitor->getLastName(),
+            'pseudo' => $visitor->getPseudo(),
             'age' => $visitor->getAge(),
             'address' => $visitor->getAddress(),
             'letter' => $visitor->getLetter(),
-            'gifts' => isset($gifts) ? $gifts : [],
         ];
 
     }

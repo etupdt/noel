@@ -11,7 +11,7 @@ class Entity {
 
             if ($property->gettype() !== null) {
                 $name = $property->getName();
-                if ($this->$name !== null) {
+                if (isset($this->$name)) {
                     $property->setValue($retour, $this->$name->clone());
                 }
             }

@@ -20,7 +20,13 @@ class VisitorRepository extends ServiceEntityRepository {
 
   public function findAll() { 
 
-    return parent::findAll();
+    return $this->findAllDatabase($this->datas);
+
+  }  
+
+  public function findBy($wheres) { 
+
+    return $this->findByDatabase($this->datas, $wheres);
 
   }  
 
@@ -37,21 +43,11 @@ class VisitorRepository extends ServiceEntityRepository {
       'id' => $id_user,
       'firstName' => $visitor->getFirstName(),
       'lastName' => $visitor->getLastName(),
+      'pseudo' => $visitor->getPseudo(),
       'age' => $visitor->getAge(),
       'address' => $visitor->getAddress(),
       'letter' => $visitor->getLetter(),
     ]);
-
-    $this->deleteDatabase('visitor_gift', [
-      'id_visitor' => $id_user
-    ]);
-
-    foreach ($visitor->getGifts() as $gift) {
-      $this->insertDatabase('visitor_gift', [
-        'id_visitor' => $id_user,
-        'id_gift' => $gift['id_gift']
-      ]);
-    }
 
   }  
 
@@ -64,21 +60,11 @@ class VisitorRepository extends ServiceEntityRepository {
     $this->updateDatabase('visitor', $visitor->getId(), [
       'firstName' => $visitor->getFirstName(),
       'lastName' => $visitor->getLastName(),
+      'pseudo' => $visitor->getPseudo(),
       'age' => $visitor->getAge(),
       'address' => $visitor->getAddress(),
       'letter' => $visitor->getLetter(),
     ]);
-
-    $this->deleteDatabase('visitor_gift', [
-      'id_visitor' => $visitor->getId()
-    ]);
-
-    foreach ($visitor->getGifts() as $gift) {
-      $this->insertDatabase('visitor_gift', [
-        'id_visitor' => $visitor->getId(),
-        'id_gift' => $gift['id_gift']
-      ]);
-    }
 
   }  
 

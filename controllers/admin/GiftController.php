@@ -22,6 +22,12 @@ class GiftController {
 
     public function index() { 
 
+        $styleSheets = [
+            'admin.css'
+        ];
+
+        $scripts = [];
+
         $help = false;
 
         $em = new EntityManager();
@@ -165,14 +171,14 @@ class GiftController {
     private function getRows (): array
     {
 
-        $categories = [];
+        $gifts = [];
 
         foreach ($this->giftRepository->findAll() as $gift) {
 
-            $categories[] = $this->getRow($gift);
+            $gifts[] = $this->getRow($gift);
         } 
 
-        return $categories;
+        return $gifts;
 
     }
 

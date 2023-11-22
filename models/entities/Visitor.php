@@ -9,15 +9,20 @@ class Visitor extends User {
   #[Column]
   protected $lastName;
   #[Column]
+  protected $pseudo;
+  #[Column]
   protected $age;
   #[Column]
   protected $address;
   #[Column]
   protected $letter;
-        
-  #[ManyToMany(classes: ['Visitor', 'Gift'])]
-  protected $gifts;
 
+  #[ManyToOne(class: 'Command')]
+  protected $commands;
+        
+  #[ManyToOne(class: 'Comment')]
+  protected $comments;
+        
   public function __construct() {
 
     $this->id = 0;
@@ -36,6 +41,10 @@ class Visitor extends User {
     return $this->lastName;
   }
 
+  public function getPseudo()  : string {
+    return $this->pseudo;
+  }
+
   public function getAge()  : string{
     return $this->age;
   }
@@ -48,8 +57,12 @@ class Visitor extends User {
     return $this->letter;
   }
 
-  public function getGifts() {
-    return $this->gifts;
+  public function getCommands() {
+    return $this->commands;
+  }
+
+  public function getComments() {
+    return $this->comments;
   }
 
   public function setFirstName(string  $firstName) {
@@ -58,6 +71,10 @@ class Visitor extends User {
 
   public function setLastName(string  $lastName) {
     $this->lastName = $lastName;
+  }
+
+  public function setPseudo(string  $pseudo) {
+    $this->pseudo = $pseudo;
   }
 
   public function setAge(string  $age) {
@@ -72,8 +89,12 @@ class Visitor extends User {
     $this->letter = $letter;
   }
 
-  public function setGifts(array  $gifts) {
-    $this->gifts = $gifts;
+  public function setCommands(array  $commands) {
+    $this->commands = $commands;
+  }
+
+  public function setComments(array  $comments) {
+    $this->comments = $comments;
   }
 
 }

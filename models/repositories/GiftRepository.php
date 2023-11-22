@@ -21,7 +21,13 @@ class GiftRepository extends ServiceEntityRepository {
 
   public function findAll() { 
 
-    return parent::findAll();
+    return $this->findAllDatabase($this->datas);
+
+  }  
+
+  public function findBy($wheres) { 
+
+    return $this->findByDatabase($this->datas, $wheres);
 
   }  
 

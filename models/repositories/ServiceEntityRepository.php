@@ -158,6 +158,40 @@ class ServiceEntityRepository {
                         break;
 
                     }
+                    case 'ManyToOne' : {
+                                              
+                        $foreignClass = $arguments['class'];
+                        $foreignTable = strtolower($foreignClass);
+        error_log('==============>    '.$foreignTable);
+        
+                        $associationDatas['columns'] = [];
+                        $associationDatas['results'] = [];
+                        $associationDatas['tables'] = [];
+                        $associationDatas['where'] = [];
+                        $associationDatas['associations'] = [];
+                        $associationDatas['pivot'] = $table;
+                        $associationDatas['master'] = $foreignTable;
+                        
+                        if ($depth < $this->maxDepth) {
+
+                            $this->analyseClasse($foreignClass, $associationDatas, $depth + 1);
+                    
+                            $associationDatas['tables'][$foreignTable] = [
+                                'class' => $foreignClass,
+                                'object' => new $foreignClass('0')
+                            ];
+                            
+                            $datas['results'][$table.'_'.$property->getName()] = [
+                                'table' => $table,
+                                'type' => 'ManyToOne',
+                                'property' => $property,
+                                'datas' => $associationDatas
+                            ];    
+                            
+                        }
+                        break;
+
+                    }
 
                 }
                 
@@ -193,6 +227,14 @@ class ServiceEntityRepository {
                     $associationObjects = $this->findAllAssociation($id, $field['datas']);
                             
                     $field['property']->setValue($datas['tables'][$table]['object'], $associationObjects);
+                    break;
+
+                }
+                case 'ManyToOne' : {
+
+                    $wheres['id_'.$table] = $array[$table.'_id'];
+
+                    $field['property']->setValue($datas['tables'][$table]['object'], $this->findByDatabase($field['datas'], $wheres));
                     break;
 
                 }
@@ -280,11 +322,11 @@ class ServiceEntityRepository {
 
     }    
 
-    public function findAll() { 
+    public function findAllDatabase($datas) { 
 
-        $findAll = "SELECT ".implode(', ', array_column($this->datas['columns'], 'selectField')).
-        " FROM ".strtolower(implode(', ', array_keys($this->datas['tables']))).
-        (count($this->datas['where']) === 0 ? "" : " WHERE ".implode(' AND ', $this->datas['where']));
+        $findAll = "SELECT ".implode(', ', array_column($datas['columns'], 'selectField')).
+        " FROM ".strtolower(implode(', ', array_keys($datas['tables']))).
+        (count($this->datas['where']) === 0 ? "" : " WHERE ".implode(' AND ', $datas['where']));
 
         $pdo = new PDO(Database::$host, Database::$username, Database::$password);
         
@@ -299,7 +341,7 @@ class ServiceEntityRepository {
         if ($pdoStatement->execute()) {  
             while($fetch = $pdoStatement->fetch(PDO::FETCH_ASSOC)) {
             
-                $object = $this->constructObject($fetch, $this->datas);
+                $object = $this->constructObject($fetch, $datas);
 
                 $objects[] = $object;
 
@@ -310,6 +352,16 @@ class ServiceEntityRepository {
         }  
 
         return $objects;
+    
+    }  
+
+    public function findByDatabase($datas, $wheres) { 
+
+        foreach ($wheres as $key=>$value) {
+            $datas['where'][] = $key.' = '.$value;
+        }
+
+        return $this->findAllDatabase($datas);
     
     }  
 

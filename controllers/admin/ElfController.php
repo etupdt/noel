@@ -20,6 +20,12 @@ class ElfController {
 
     public function index() { 
 
+        $styleSheets = [
+            'admin.css'
+        ];
+
+        $scripts = [];
+
         $help = false;
 
         $em = new EntityManager();
@@ -29,7 +35,7 @@ class ElfController {
 
         $fields = $this->getFields();
 
-        require_once 'views/header.php';
+        require_once 'views/common/header.php';
 
         if ($_SERVER['REQUEST_METHOD'] === "GET") {
 

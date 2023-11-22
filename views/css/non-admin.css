@@ -1,0 +1,25 @@
+
+main > div {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.div-gifts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.gift {
+  width: 33%;
+}
+
+.gift img {
+  width: 100%;
+}
+
+.img-card {
+  height: 80px;
+}
