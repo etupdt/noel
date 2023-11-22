@@ -1,0 +1,17 @@
+
+html, body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display:flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+    
+footer {
+  position: relative;
+  width: 100%;
+  margin-top: auto;
+  display: block;
+}
+    

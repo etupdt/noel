@@ -1,22 +1,24 @@
 <?php
 
-require_once 'models/entities/Comment.php';
-require_once 'models/repositories/CommentRepository.php';
+require_once 'models/entities/Command.php';
+require_once 'models/repositories/CommandRepository.php';
 require_once 'models/repositories/EntityManager.php';
 
-class CommentController {
+class CommandController {
 
-    private CommentRepository $commentRepository;
+    private CommandRepository $commandRepository;
     private VisitorRepository $visitorRepository;
+    private GiftRepository $giftRepository;
 
     public function __construct() {
  
-        error_log('===== Comment ====================================================================================================================>   ');
+        error_log('===== Command ====================================================================================================================>   ');
 
         $depth = 1;
 
-        $this->commentRepository = new CommentRepository(1);
+        $this->commandRepository = new CommandRepository(1);
         $this->visitorRepository = new VisitorRepository(0);
+        $this->giftRepository = new GiftRepository(0);
 
     }
 
@@ -32,8 +34,8 @@ class CommentController {
 
         $em = new EntityManager();
 
-        $nameMenu = "Commentaires";
-        $nameEntity = "comment";
+        $nameMenu = "Commande";
+        $nameEntity = "command";
 
         $fields = $this->getFields();
 
@@ -47,7 +49,7 @@ class CommentController {
             } else {
                 switch ($_GET['a']) {
                     case 'd' : {
-                        $row = $this->commentRepository->find($_GET['id']);
+                        $row = $this->commandRepository->find($_GET['id']);
                         $em->remove($row);
                         $em->flush();
                         $rows = $this->getRows();
@@ -55,15 +57,16 @@ class CommentController {
                         break;
                     }
                     case 'u' : {
-                        $row = $this->getRow($this->commentRepository->find($_GET['id']));
+                        $row = $this->getRow($this->commandRepository->find($_GET['id']));
                         require_once 'views/admin/entityForm.php';
                         break;
                     }
                     case 'i' : {
-                        $comment = new Comment();
-                        $comment->setComment('');
-                        $comment->setValidate(false);
-                        $row = $this->getRow($comment);
+                        $command = new Command();
+                        $command->setQuantity(0);
+                        $command->setVisitor(new Visitor(0));
+                        $command->setGift(new Gift(0));
+                        $row = $this->getRow($command);
                         require_once 'views/admin/entityForm.php';
                         break;
                     }
@@ -74,19 +77,19 @@ class CommentController {
 
             if ($_POST['id'] !== "0") {
 
-                $comment = $this->commentRepository->find($_POST['id']); 
+                $command = $this->commandRepository->find($_POST['id']); 
 
             } else {
 
-                $comment = new Comment(0);
+                $command = new Command(0);
 
             }    
 
-            $comment->setComment($_POST['comment']);
-            $comment->setValidate(isset($_POST['validate']) ? true : false);
-            $comment->setVisitor($this->visitorRepository->find($_POST['id_visitor'])); 
+            $command->setQuantity($_POST['quantity']);
+            $command->setVisitor($this->visitorRepository->find($_POST['id_visitor'])); 
+            $command->setGift($this->giftRepository->find($_POST['id_gift'])); 
 
-            $em->persist($comment);
+            $em->persist($command);
             $em->flush();
 
             $rows = $this->getRows();
@@ -107,20 +110,15 @@ class CommentController {
             'type' => 'text'
         ];
         $fields[] = [
-            'label' => 'Commentaire',
-            'name' => 'comment',
-            'type' => 'textarea'
-        ];
-        $fields[] = [
-            'label' => 'Modéré',
-            'name' => 'validate',
-            'type' => 'checkbox'
+            'label' => 'Nombre',
+            'name' => 'quantity',
+            'type' => 'text'
         ];
 
         $visitors = [];
 
         foreach ($this->visitorRepository->findAll() as $visitor) {
-            $visitors[$visitor->getId()] = $visitor->getPseudo();
+            $visitors[$visitor->getId()] = $visitor->getLastName().' '.$visitor->getFirstName();
         }
 
         $fields[] = [
@@ -130,6 +128,19 @@ class CommentController {
             'value' => $visitors
         ];
 
+        $gifts = [];
+
+        foreach ($this->giftRepository->findAll() as $gift) {
+            $gifts[$gift->getId()] = $gift->getName();
+        }
+
+        $fields[] = [
+            'label' => 'Cadeau',
+            'name' => 'id_gift',
+            'type' => 'select',
+            'value' => $gifts
+        ];
+
         return $fields;
 
     }
@@ -137,27 +148,28 @@ class CommentController {
     private function getRows (): array
     {
 
-        $comments = [];
+        $categories = [];
 
-        foreach ($this->commentRepository->findAll() as $comment) {
+        foreach ($this->commandRepository->findAll() as $command) {
 
-            $comments[] = $this->getRow($comment);
+            $categories[] = $this->getRow($command);
         } 
 
-        return $comments;
+        return $categories;
 
     }
 
-    private function getRow (Comment $comment): array 
+    private function getRow (Command $command): array 
     {
 
-        $visitor = $comment->getVisitor();
+        $visitor = $command->getVisitor();
+        $gift = $command->getGift();
 
         return  [
-            'id' => $comment->getId(),
-            'comment' => $comment->getComment(),
-            'validate' => $comment->getValidate(),
+            'id' => $command->getId(),
+            'quantity' => $command->getQuantity(),
             'id_visitor' => isset($visitor) ? $visitor->getId() : 0,
+            'id_gift' => isset($gift) ? $gift->getId() : 0,
         ];
 
     }

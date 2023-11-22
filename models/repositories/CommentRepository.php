@@ -20,7 +20,13 @@ class CommentRepository extends ServiceEntityRepository {
 
   public function findAll() { 
 
-    return parent::findAll();
+    return $this->findAllDatabase($this->datas);
+
+  }  
+
+  public function findBy($wheres) { 
+
+    return $this->findByDatabase($this->datas, $wheres);
 
   }  
 
@@ -28,8 +34,8 @@ class CommentRepository extends ServiceEntityRepository {
 
     $id_comment = $this->insertDatabase('comment', [
       'comment' => $comment->getComment(),
-      'validate' => $comment->getValidate(),
-      'pseudo' => $comment->getPseudo(),
+      'validate' => $comment->getValidate() ? 1 : 0,
+      'id_visitor' => $comment->getVisitor()->getId()
     ]);
 
   }  
@@ -38,8 +44,8 @@ class CommentRepository extends ServiceEntityRepository {
 
     $this->updateDatabase('comment', $comment->getId(), [
       'comment' => $comment->getComment(),
-      'validate' => $comment->getValidate(),
-      'pseudo' => $comment->getPseudo(),
+      'validate' => $comment->getValidate() ? 1 : 0,
+      'id_visitor' => $comment->getVisitor()->getId()
     ]);
 
   }  
