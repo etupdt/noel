@@ -34,7 +34,7 @@ class ElfRepository extends ServiceEntityRepository {
 
     $id_user = $this->insertDatabase('user', [
       'email' => $elf->getEmail(),
-      'password' => '',
+      'password' => password_hash($elf->getPassword(), PASSWORD_BCRYPT),
       'roles' => '["ROLE_ELF"]',
     ]);
 

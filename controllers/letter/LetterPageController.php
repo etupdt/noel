@@ -26,9 +26,9 @@ class LetterPageController {
 
         $em = new EntityManager();
 
-        $visitor = $this->visitorRepository->find('1');
-        
-        if (isset($visitor)) {
+        if (isset($_SESSION['user'])) {
+
+            $visitor = $this->visitorRepository->find(''.$_SESSION['user']->getId());
 
             if (!isset($commands)) {
                 $commands = [];

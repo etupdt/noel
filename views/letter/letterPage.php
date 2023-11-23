@@ -3,16 +3,6 @@
   <h1 class="pt-3 m-0">Lettre au Père Noël</h1>
   <form method="POST" class="col-8">
     <div class="d-flex flex-column flex-md-row col-12">
-      <div class="form-group col-8">
-        <label class="mt-1" for="email">Email</label>
-        <input type="email" class="form-control border-success rounded-0" name="email" value="<?php echo $visitor->getEmail() ?>">
-      </div>
-      <div class="form-group col-4 ps-2">
-        <label class="mt-1" for="password">Password</label>
-        <input type="password" class="form-control border-success rounded-0" name="password" value="<?php echo $visitor->getPassword() ?>">
-      </div>
-    </div>
-    <div class="d-flex flex-column flex-md-row col-12">
       <div class="form-group col-5">
         <label class="mt-1" for="firstname">Nom</label>
         <input type="text" class="form-control border-success rounded-0" name="firstname" value="<?php echo $visitor->getFirstname() ?>">

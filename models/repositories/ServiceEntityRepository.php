@@ -162,7 +162,6 @@ class ServiceEntityRepository {
                                               
                         $foreignClass = $arguments['class'];
                         $foreignTable = strtolower($foreignClass);
-        error_log('==============>    '.$foreignTable);
         
                         $associationDatas['columns'] = [];
                         $associationDatas['results'] = [];
@@ -326,7 +325,7 @@ class ServiceEntityRepository {
 
         $findAll = "SELECT ".implode(', ', array_column($datas['columns'], 'selectField')).
         " FROM ".strtolower(implode(', ', array_keys($datas['tables']))).
-        (count($this->datas['where']) === 0 ? "" : " WHERE ".implode(' AND ', $datas['where']));
+        (count($datas['where']) === 0 ? "" : " WHERE ".implode(' AND ', $datas['where']));
 
         $pdo = new PDO(Database::$host, Database::$username, Database::$password);
         
@@ -358,7 +357,7 @@ class ServiceEntityRepository {
     public function findByDatabase($datas, $wheres) { 
 
         foreach ($wheres as $key=>$value) {
-            $datas['where'][] = $key.' = '.$value;
+            $datas['where'][] = $key." = '".$value."'";
         }
 
         return $this->findAllDatabase($datas);

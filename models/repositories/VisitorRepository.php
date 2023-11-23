@@ -34,7 +34,8 @@ class VisitorRepository extends ServiceEntityRepository {
 
     $id_user = $this->insertDatabase('user', [
       'email' => $visitor->getEmail(),
-      'password' => '',
+      'password' => password_hash('password', PASSWORD_BCRYPT),
+      // 'password' => password_hash($visitor->getPassword(), PASSWORD_BCRYPT),
       'roles' => '["ROLE_VISITOR"]',
     ]);
 

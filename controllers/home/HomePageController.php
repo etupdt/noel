@@ -26,13 +26,11 @@ class HomePageController {
 
         $em = new EntityManager();
     
-        $visitor = $this->visitorRepository->find('1');
-        
-        if (!isset($visitor)) {
-            $comments = [];
-        } else {
-            $comments = $this->commentRepository->findBy(['id_visitor' => $visitor->getId(), 'validate' => 1]);
+        if (isset($_SESSION['user'])) {
+            $visitor = $this->visitorRepository->find(''.$_SESSION['user']->getId());
         }
+
+        $comments = $this->commentRepository->findBy(['validate' => 1]);
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             
@@ -40,8 +38,6 @@ class HomePageController {
             $comment->setComment($_POST['comment']);
             $comment->setValidate(false);
             $comment->setVisitor($visitor);
-            
-            // $comments[] = $comment;
             
             $em->persist($comment);
             $em->flush();

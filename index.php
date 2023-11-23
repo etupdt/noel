@@ -6,6 +6,8 @@ require_once 'controllers/home/HomePageController.php';
 require_once 'controllers/letter/LetterPageController.php';
 require_once 'controllers/gift/GiftPageController.php';
 
+require_once 'controllers/login/LoginApiController.php';
+
 require_once 'controllers/admin/CategoryController.php';
 require_once 'controllers/admin/CommentController.php';
 require_once 'controllers/admin/GiftController.php';
@@ -19,7 +21,11 @@ define("BASE_URL", '');
 define("ADMIN_URL", '/admin');
 define("API_URL", '/api');
 
+session_set_cookie_params([
+    'httponly' => true
+]);
 session_start();
+
 if (!isset($_COOKIE['gifts'])) {
     setcookie('gifts', '{}');
 }
@@ -34,6 +40,9 @@ $router->addRoute('POST',BASE_URL.'/letter', 'LetterPageController', 'index');
 
 $router->addRoute('GET',BASE_URL.'/gift', 'GiftPageController', 'index');
 $router->addRoute('POST',BASE_URL.'/gift', 'GiftpageController', 'index');
+
+$router->addRoute('POST',BASE_URL.API_URL.'/login', 'LoginApiController', 'login');
+$router->addRoute('POST',BASE_URL.API_URL.'/logout', 'LoginApiController', 'logout');
 
 $router->addRoute('GET',BASE_URL.ADMIN_URL.'/category', 'CategoryController', 'index');
 $router->addRoute('POST',BASE_URL.ADMIN_URL.'/category', 'CategoryController', 'index');
