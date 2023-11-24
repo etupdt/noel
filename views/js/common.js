@@ -1,4 +1,32 @@
 
+let noel = new Date(2023, 11, 26);
+
+const typesUnities = ['days', 'hours', 'minutes', 'secondes']
+let unities = {}
+
+typesUnities.forEach(typeUnity => {
+  unities[typeUnity] = window.document.getElementById(`rebours-${typeUnity}`)
+})
+
+const intervalID = setInterval(() => {
+  console.log('toto')
+  secondes = Math.floor((noel - new Date()) / 1000)
+  const days = Math.floor(secondes / 86400) 
+  unities.days.innerText = days
+  const hours = Math.floor(secondes / 3600) - (days * 24)
+  unities.hours.innerText = hours
+  const minutes = Math.floor(secondes / 60) - (days * 1440) - (hours * 60)
+  unities.minutes.innerText = minutes
+  unities.secondes.innerText = secondes - (days * 86400) - (hours * 3600) - (minutes * 60)
+}, 1000);
+
+for (let a of window.document.getElementsByTagName('a')) {
+  const name = a.getAttribute('name')
+  if (name && name.indexOf('page-link') > 0) {
+    a.addEventListener("click", () => displayModal(name.replace('page-link', '')), false)
+  }
+}
+
 let displayedModal
 
 const typesModals = ['login', 'logon', 'forgot', 'logout']

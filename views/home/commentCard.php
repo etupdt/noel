@@ -1,11 +1,9 @@
 
 <article class="d-flex flex-row w-100">  
-  <div class="card col-3 m-1">
+  <div class="m-1 mb-3 comment w-100">
     <div class="d-flex">
-      <p class="card-text"><?= $comment->getVisitor()->getPseudo(); ?></p>
+      <p class="m-0">De <?= $comment->getVisitor()->getPseudo(); ?></p>
     </div>
-  </div>
-  <div class="card w-100 m-1 px-1">
-    <p class="card-text"><?= $comment->getComment(); ?></p>
+    <p class="w-100 p-2"><?= $comment->getComment(); ?></p>
   </div>
 </article>

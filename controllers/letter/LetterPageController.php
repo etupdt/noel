@@ -22,7 +22,9 @@ class LetterPageController {
             'non-admin.css'
         ];
 
-        $scripts = [];
+        $scripts = [
+            'letter.js'
+        ];
 
         $em = new EntityManager();
 
@@ -71,9 +73,8 @@ class LetterPageController {
         
         }
         
-        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+        if (isset($_SESSION['user']) && $_SERVER['REQUEST_METHOD'] === "POST") {
 
-            $visitor->setEmail($_POST['email']);
             $visitor->setFirstName($_POST['firstname']);
             $visitor->setLastName($_POST['lastname']);
             $visitor->setPseudo($_POST['pseudo']);

@@ -7,11 +7,15 @@ html, body {
   flex-direction: column;
   overflow-y: auto;
 }
+
+.navbar {
+  background-color: azure !important;
+}
     
 footer {
   position: relative;
   width: 100%;
   margin-top: auto;
   display: block;
+  background-color: azure;
 }
-    

@@ -1,0 +1,14 @@
+
+main p {
+  width: 80%;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+main .animation {
+  height: 400px;
+}
+
+.comment > p {
+  background-color: lightgray;
+}

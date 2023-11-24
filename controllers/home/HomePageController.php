@@ -19,7 +19,8 @@ class HomePageController {
     public function index() { 
 
         $styleSheets = [
-            'non-admin.css'
+            'non-admin.css',
+            'home.css'
         ];
 
         $scripts = [];
