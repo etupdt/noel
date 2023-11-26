@@ -26,6 +26,8 @@ class LetterPageController {
             'letter.js'
         ];
 
+        $menuOption = "letter";
+
         $em = new EntityManager();
 
         if (isset($_SESSION['user'])) {

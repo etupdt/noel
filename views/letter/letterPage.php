@@ -1,8 +1,8 @@
 
-<img class="screen-background" src="/assets/images/rennes4.jpg" alt="">
+<img class="screen-background" src="/assets/images/pexels-photo-6101955.jpg" alt="">
 <div class="mask-screen-background"></div>
 
-<main class="container d-flex flex-column align-items-center main-mission p-0">
+<main class="container d-flex flex-column align-items-end main-mission p-0">
   <h1 class="pt-3  mb-5">Lettre au Père Noël</h1>
   <form method="POST" class="col-8" id="letterpage">
     <div class="d-flex flex-column flex-md-row col-12">
@@ -35,7 +35,9 @@
       <button class="btn btn-outline-success mt-3 w-50" id="letter-validate">Envoie la lettre avec les cadeaux demandés</button>
     </div>
   </form>
-  <h2 class="mt-3">Tu as selectionné les cadeaux suivants</h2>
+  <?php if (count($commands) > 0) { 
+    echo '<h2 class="mt-3">Tu as selectionné les cadeaux suivants</h2>';
+  } ?>
   <div class="col-8">
     <?php 
     foreach ($commands as $command) {

@@ -24,25 +24,43 @@
 <body>
   
 <header>
-  <nav class="navbar navbar-expand-lg border-bottom">
+  <nav class="navbar navbar-dark navbar-expand-lg border-bottom">
     <div class="container">
-      <a class="navbar-brand" href="#">Noël</a>
+      <a class="navbar-brand" href="#"><img class="logo" src="/assets/images/logo.png" alt=""></a>
+      <div id="compte-rebours">
+            <div class="unity-rebours" id="rebours-days">
+              <div id="rebours-days-counter"></div>
+              <div class="unity">Jours</div>
+            </div>
+            <div class="unity-rebours" id="rebours-hours">
+              <div id="rebours-hours-counter"></div>
+              <div class="unity">Heures</div>
+            </div>
+            <div class="unity-rebours" id="rebours-minutes">
+              <div id="rebours-minutes-counter"></div>
+              <div class="unity">Minutes</div>
+            </div>
+            <div class="unity-rebours" id="rebours-secondes">
+              <div id="rebours-secondes-counter"></div>
+              <div class="unity">Secondes</div>
+            </div>
+          </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="<?php echo BASE_URL.'/';?>">Accueil</a>
+            <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/') echo 'active'; else echo ''; ?>" aria-current="page" href="<?php echo BASE_URL.'/';?>">Accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo BASE_URL."/gift";?>">Cadeaux</a>
+            <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/gift') echo 'active'; else echo ''; ?>" href="<?php echo BASE_URL."/gift";?>">Cadeaux</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo BASE_URL."/letter";?>">Lettre</a>
+            <a class="nav-link <?php if ($_SERVER['REQUEST_URI'] === '/letter') echo 'active'; else echo ''; ?>" href="<?php echo BASE_URL."/letter";?>">Lettre</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle <?php if (strpos($_SERVER['REQUEST_URI'], '/admin') === 0) echo 'active'; else echo ''; ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Administration
             </a>
             <ul class="dropdown-menu">
@@ -55,12 +73,8 @@
             </ul>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
         <div class="ms-2">
-          <button id="button-login" type="submit" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginpage"
+          <button id="button-login" type="submit" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#loginpage"
             style="display: <?php echo isset($_SESSION['user']) ? 'none' : 'block'; ?>"
           >
             <svg title="Login" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
@@ -71,7 +85,7 @@
           <?php require_once 'views/common/loginModal.php'; ?>
           <?php require_once 'views/common/logonModal.php'; ?>
           <?php require_once 'views/common/forgotModal.php'; ?>
-          <button id="button-logout" type="submit" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#logoutpage" 
+          <button id="button-logout" type="submit" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#logoutpage" 
             style="display: <?php echo isset($_SESSION['user']) ? 'block' : 'none'; ?>"
           >
             <svg title="logout" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
@@ -80,12 +94,6 @@
             </svg>
           </button>
           <?php require_once 'views/common/logoutModal.php'; ?>
-          <div id="compte-rebours">
-            <span id="rebours-days">j</span>
-            <span id="rebours-hours">h</span>
-            <span id="rebours-minutes">m</span>
-            <span class="unity-rebours" id="rebours-secondes">s</span>
-          </div>
         </div>
       </div>
     </div>

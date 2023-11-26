@@ -25,6 +25,8 @@ class HomePageController {
 
         $scripts = [];
 
+        $menuOption = "home";
+
         $em = new EntityManager();
     
         if (isset($_SESSION['user'])) {

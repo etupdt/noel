@@ -1,14 +1,44 @@
 
-main p {
-  width: 80%;
+#histoire {
+  width: 100%;
+  height: fit-content;
   font-size: 1.2em;
   font-weight: 500;
+  background-color: rgb(234, 102, 102);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-main .animation {
-  height: 400px;
+.animation {
+  width: 100%;
 }
 
-.comment > p {
-  background-color: lightgray;
+#sapin {
+  height: 700px;
+  border-radius: 8px;
+  z-index: 2;
+  margin-top: -100px
+}
+
+#rennes {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: -250px;
+}
+
+.comment p {
+  width: 20%;
+  padding: 10px;
+  background-color: white;
+  color: black;
+}
+
+@media screen and (min-width: 991px) {
+
+  main > p {
+    width: 60%;
+  }
+  
 }

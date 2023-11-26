@@ -1,24 +1,117 @@
 
 let noel = new Date(2023, 11, 26);
+let timer = 0
+let change = 0
+let pas = 1
+let minutes, ancMinutes
+let hours, ancHours
+let days, ancDays
+let scenario = 0
+let isMoving = false
+
+let crClientX = 0
+let crClientY = 0
 
 const typesUnities = ['days', 'hours', 'minutes', 'secondes']
 let unities = {}
 
 typesUnities.forEach(typeUnity => {
-  unities[typeUnity] = window.document.getElementById(`rebours-${typeUnity}`)
+  unities[typeUnity] = {}
+  unities[typeUnity].div = window.document.getElementById(`rebours-${typeUnity}`)
+  unities[typeUnity].counter = window.document.getElementById(`rebours-${typeUnity}-counter`)
 })
 
 const intervalID = setInterval(() => {
-  console.log('toto')
-  secondes = Math.floor((noel - new Date()) / 1000)
-  const days = Math.floor(secondes / 86400) 
-  unities.days.innerText = days
-  const hours = Math.floor(secondes / 3600) - (days * 24)
-  unities.hours.innerText = hours
-  const minutes = Math.floor(secondes / 60) - (days * 1440) - (hours * 60)
-  unities.minutes.innerText = minutes
-  unities.secondes.innerText = secondes - (days * 86400) - (hours * 3600) - (minutes * 60)
-}, 1000);
+
+  if (timer === 5) {
+
+    secondes = Math.floor((noel - new Date()) / 1000)
+    days = Math.floor(secondes / 86400) 
+    unities.days.counter.innerText = days
+    hours = Math.floor(secondes / 3600) - (days * 24)
+    unities.hours.counter.innerText = hours
+    minutes = Math.floor(secondes / 60) - (days * 1440) - (hours * 60)
+    unities.minutes.counter.innerText = minutes
+    unities.secondes.counter.innerText = secondes - (days * 86400) - (hours * 3600) - (minutes * 60)
+
+  }
+
+  if (timer === -15) {
+
+    pas = 1
+    
+  }
+
+  if (timer === 5) {
+
+    pas = -1
+
+  }
+
+  if (timer < 0) {
+    change = 0
+  } else {
+    change = timer
+  }
+
+  unities.secondes.div.style.transform = (scenario % 2) === 1 ? `scale(${(5 - change) * 0.20}, 1)` : `scale(1, ${(5 - change) * 0.20})`
+  if (ancMinutes !== minutes) {
+    unities.minutes.div.style.transform = (scenario % 2) === 1 ? `scale(${(5 - change) * 0.20}, 1)` : `scale(1, ${(5 - change) * 0.20})`
+  }
+  if (ancHours !== hours) {
+    unities.hours.div.style.transform = (scenario % 2) === 1 ? `scale(${(5 - change) * 0.20}, 1)` : `scale(1, ${(5 - change) * 0.20})`
+  }
+  if (ancDays !== days) {
+    unities.days.div.style.transform = (scenario % 2) === 1 ? `scale(${(5 - change) * 0.20}, 1)` : `scale(1, ${(5 - change) * 0.20})`
+  }
+  
+  if (timer === 0) {
+    ancMinutes = minutes
+    ancHours = hours
+    ancDays = days
+    scenario = Math.floor(Math.random(2) * 2)
+    scenario = 1
+  }
+
+  timer += pas
+
+}, 25);
+
+const compteRebours = window.document.getElementById('compte-rebours')
+
+compteRebours.style.display = 'flex'
+if (undefined !== localStorage.getItem("crX")) {
+  compteRebours.style.left = Math.min(localStorage.getItem("crX") , window.innerWidth - compteRebours.offsetWidth) + 'px'
+  compteRebours.style.top = localStorage.getItem("crY") + 'px'
+}
+
+
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem("crX", compteRebours.offsetLeft)
+  localStorage.setItem("crY", compteRebours.offsetTop)
+})
+
+addEventListener('resize', () => {
+  moveToXY(compteRebours.offsetLeft, compteRebours.offsetTop, compteRebours.offsetWidth, compteRebours.offsetHeight)
+})
+compteRebours.addEventListener('mousedown', (e) => {
+  crClientX = e.clientX - compteRebours.offsetLeft
+  crClientY = e.clientY - compteRebours.offsetTop
+  isMoving = true
+})
+window.addEventListener('mousemove', (e) => {
+  if (isMoving) {moveToXY(e.clientX - crClientX, e.clientY - crClientY, compteRebours.offsetWidth, compteRebours.offsetHeight)}
+})
+window.addEventListener('mouseup', (e) => isMoving = false)
+
+function moveToXY (x, y, w, h) {
+  if (x < window.scrollX) x = window.scrollX
+  if (y < window.scrollY) y = window.scrollY
+  if (x + w > window.innerWidth + window.scrollX) x = window.innerWidth + window.scrollX - w
+  if (y + h > window.innerHeight + window.scrollY) y = window.innerHeight + window.scrollY - h
+  compteRebours.style.left = x + 'px'
+  compteRebours.style.top = y + 'px'
+}
 
 for (let a of window.document.getElementsByTagName('a')) {
   const name = a.getAttribute('name')

@@ -64,7 +64,7 @@ $router->addRoute('POST',BASE_URL.ADMIN_URL.'/command', 'CommandController', 'in
 
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = explode('?', $_SERVER['REQUEST_URI'])[0];
-
+error_log('=====================================================================> '.$_SERVER['REQUEST_URI']);
 $handler = $router->gethandler($method, $uri);
 
 if ($handler == null ) { 

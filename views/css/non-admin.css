@@ -7,7 +7,7 @@ body {
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: -2;
+  z-index: -3;
   overflow-y: auto;
   /* filter: opacity(30%); */
   width: auto;
@@ -21,11 +21,12 @@ body {
   z-index: -1;
   width: 100%;
   height: 100vh;
-  background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6), transparent);
+  /* background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6), transparent); */
 } 
 
 main p {
   text-align: justify;
+  
 }
 
 .div-gifts {
@@ -47,7 +48,7 @@ main p {
   height: 80px;
 }
 
-@media screen and (min-aspect-ratio: 1000/563) {
+@media screen and (min-aspect-ratio: 1600/1044) {
 
   .screen-background {
     width: 100vw;

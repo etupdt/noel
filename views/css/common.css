@@ -5,11 +5,11 @@ html, body {
   padding: 0;
   display:flex;
   flex-direction: column;
-  overflow-y: auto;
 }
 
 .navbar {
-  background-color: azure !important;
+  background-color: rgb(234, 102, 102) !important;
+  font-size: 1.2em
 }
     
 footer {
@@ -17,5 +17,38 @@ footer {
   width: 100%;
   margin-top: auto;
   display: block;
-  background-color: azure;
+  background-color: rgb(234, 102, 102);
+}
+
+#compte-rebours {
+  display: none;
+  position: absolute;
+  top: 100px;
+  left: 20px;
+  z-index: 10;
+}
+
+.unity-rebours {
+  border: solid white 1px;
+  background-color: rgb(234, 102, 102);
+  color: white;
+  height: 70px;
+  width: 60px;
+  text-align: center;
+  font-size: 30px;
+  padding: 3px;
+  user-select: none;
+}
+
+.unity {
+  font-size: 10px;
+}
+
+.logo {
+  width: 70px;
+}
+
+@media screen and (min-width: 991px) {
+
+  
 }
