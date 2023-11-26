@@ -30,7 +30,13 @@
       value="<?php echo $row[$field['name']] ?>"
     />
     <div class="mt-3">
-      <img id="<?php echo $field['name'].'_image'; ?>" src="<?php echo $field['path'].$row[$field['name']]; ?>" alt="">  
+      <img id="<?php echo $field['name'].'_image'; ?>" 
+        src="<?php 
+        if (isset($field['path'])) {
+          echo $field['path'].$row[$field['name']]; 
+        }
+        ?>" alt=""
+      >  
     </div>
 
     <div class="invalid-feedback message">

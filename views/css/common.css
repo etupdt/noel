@@ -26,18 +26,20 @@ footer {
   top: 100px;
   left: 20px;
   z-index: 10;
+  height: 60px
 }
 
 .unity-rebours {
   border: solid white 1px;
   background-color: rgb(234, 102, 102);
   color: white;
-  height: 70px;
+  height: 120px;
   width: 60px;
   text-align: center;
   font-size: 30px;
   padding: 3px;
   user-select: none;
+  overflow-y: hidden;
 }
 
 .unity {
@@ -46,6 +48,10 @@ footer {
 
 .logo {
   width: 70px;
+}
+
+form a {
+  font-size: 0.8em !important;
 }
 
 @media screen and (min-width: 991px) {

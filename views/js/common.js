@@ -18,6 +18,7 @@ let unities = {}
 typesUnities.forEach(typeUnity => {
   unities[typeUnity] = {}
   unities[typeUnity].div = window.document.getElementById(`rebours-${typeUnity}`)
+  unities[typeUnity].newCounter = window.document.getElementById(`rebours-${typeUnity}-new-counter`)
   unities[typeUnity].counter = window.document.getElementById(`rebours-${typeUnity}-counter`)
 })
 
@@ -38,6 +39,7 @@ const intervalID = setInterval(() => {
 
   if (timer === -15) {
 
+    unities.secondes.counter.style.transform = (scenario % 2) === 1 ? `scale(${(5 - change) * 0.20}, 1)` : `scale(1, ${(5 - change) * 0.20})`
     pas = 1
     
   }
@@ -54,7 +56,8 @@ const intervalID = setInterval(() => {
     change = timer
   }
 
-  unities.secondes.div.style.transform = (scenario % 2) === 1 ? `scale(${(5 - change) * 0.20}, 1)` : `scale(1, ${(5 - change) * 0.20})`
+  unities.secondes.counter.style.transform = (scenario % 2) === 1 ? `scale(${(5 - change) * 0.20}, 1)` : `scale(1, ${(5 - change) * 0.20})`
+  unities.secondes.counter.style.transform = (scenario % 2) === 1 ? `scale(${(5 - change) * 0.20}, 1)` : `scale(1, ${(5 - change) * 0.20})`
   if (ancMinutes !== minutes) {
     unities.minutes.div.style.transform = (scenario % 2) === 1 ? `scale(${(5 - change) * 0.20}, 1)` : `scale(1, ${(5 - change) * 0.20})`
   }
@@ -70,7 +73,7 @@ const intervalID = setInterval(() => {
     ancHours = hours
     ancDays = days
     scenario = Math.floor(Math.random(2) * 2)
-    scenario = 1
+    scenario = 0
   }
 
   timer += pas

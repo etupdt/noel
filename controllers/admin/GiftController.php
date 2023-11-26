@@ -23,10 +23,14 @@ class GiftController {
     public function index() { 
 
         $styleSheets = [
-            'admin.css'
+            'admin.css',
+            'cropper.min.css'
         ];
 
-        $scripts = [];
+        $scripts = [
+            'giftAdmin.js',
+            // 'cropper.min.js'
+        ];
 
         $help = false;
 

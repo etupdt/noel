@@ -23,7 +23,7 @@ class LetterPageController {
         ];
 
         $scripts = [
-            'letter.js'
+            'letterPage.js'
         ];
 
         $menuOption = "letter";
