@@ -11,7 +11,7 @@ class GiftPageController {
         ];
 
         $scripts = [
-            JS_URL.'/giftPage.js'
+            '/giftPage.js'
         ];
 
         $gifts = (new GiftRepository(1))->findAll();

@@ -42,7 +42,6 @@
               <div class="unity">Minutes</div>
             </div>
             <div class="unity-rebours" id="rebours-secondes">
-              <div id="rebours-secondes-new-counter"></div>
               <div id="rebours-secondes-counter"></div>
               <div class="unity">Secondes</div>
             </div>
